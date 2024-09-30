@@ -5,4 +5,10 @@
 Connect to the cluster
 
 
-aws eks update-kubeconfig --region us-west-2 --name test-eksdemo1
+aws eks update-kubeconfig --region us-west-2 --name busyqa-eksproject
+
+# Deploy EBS CSI Driver
+kubectl apply -k "github.com/kubernetes-sigs/aws-ebs-csi-driver/deploy/kubernetes/overlays/stable/?ref=master"
+
+# Verify ebs-csi pods running
+kubectl get pods -n kube-system

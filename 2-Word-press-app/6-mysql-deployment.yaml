@@ -1,0 +1,67 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql
+  namespace: wordpress
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mysql
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      containers:
+      - name: mysql
+        image: mysql:5.7
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mysql-secret
+              key: root-password
+        - name: MYSQL_DATABASE
+          valueFrom:
+            configMapKeyRef:
+              name: mysql-configmap
+              key: MYSQL_DATABASE
+        - name: MYSQL_USER
+          valueFrom:
+            configMapKeyRef:
+              name: mysql-configmap
+              key: MYSQL_USER
+        - name: MYSQL_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mysql-secret
+              key: db-password
+        ports:
+        - containerPort: 3306
+          name: mysql
+        volumeMounts:
+        - name: mysql-storage
+          mountPath: /var/lib/mysql  # MySQL data directory
+        resources:
+          requests:
+            memory: "512Mi"  # Minimum memory required
+            cpu: "250m"      # Minimum CPU required
+        args: ["--ignore-db-dir=lost+found"]  # Ignore lost+found directory
+        readinessProbe:
+          exec:
+            command:
+              - mysqladmin
+              - ping
+              - "-h127.0.0.1"
+              - "-u$MYSQL_USER"
+              - "-p$MYSQL_PASSWORD"  # Use the MySQL password here
+          initialDelaySeconds: 30  # Wait 30 seconds before starting the checks
+          periodSeconds: 10         # Check every 10 seconds
+          failureThreshold: 3       # Mark as not ready after 3 failures
+      volumes:
+      - name: mysql-storage
+        persistentVolumeClaim:
+          claimName: mysql-pvc  # References the PVC

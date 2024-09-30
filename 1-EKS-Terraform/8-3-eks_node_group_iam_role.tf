@@ -1,9 +1,3 @@
-# This IAM role is assumed by the worker nodes (EC2 instances) 
-# in an EKS cluster. It provides the nodes with permissions to
-# interact with AWS services and resources on behalf of the 
-# Kubernetes workloads running on those nodes.
-
-# IAM Role for EKS Node Group 
 resource "aws_iam_role" "eks_nodegroup_role" {
   name = "${local.name}-eks-nodegroup-role"
 
@@ -33,3 +27,7 @@ resource "aws_iam_role_policy_attachment" "eks-AmazonEC2ContainerRegistryReadOnl
   policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
   role       = aws_iam_role.eks_nodegroup_role.name
 }
+
+
+
+
