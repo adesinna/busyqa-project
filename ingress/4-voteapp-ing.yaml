@@ -11,7 +11,7 @@ spec:
   - hosts:
     - vote.shananatestingdevops.xyz
     - result.shananatestingdevops.xyz
-    secretName: busyqa-tls-secret  # Reference the same secret
+    secretName: voteapp-tls-secret  # Reference the same secret
   rules:
   - host: vote.shananatestingdevops.xyz
     http:

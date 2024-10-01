@@ -10,7 +10,7 @@ spec:
   tls:
   - hosts:
     - shananatestingdevops.xyz
-    secretName: busyqa-tls-secret  # Reference the same secret
+    secretName: home-tls-secret  # Reference the  secret
   rules:
   - host: shananatestingdevops.xyz
     http:

@@ -1,44 +1,46 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: wildcard-tls
-  namespace: home  # Namespace where the certificate will be created
+  name: wordpress-tls
+  namespace: wordpress
 spec:
-  secretName: busyqa1-tls-secret
+  secretName: wordpress-tls-secret
   issuerRef:
     name: letsencrypt-prod
     kind: ClusterIssuer
-  commonName: "*.shananatestingdevops.xyz"
+  commonName: wordpress.shananatestingdevops.xyz
   dnsNames:
-  - "*.shananatestingdevops.xyz"
-
----
-apiVersion: cert-manager.io/v1
-kind: Certificate
-metadata:
-  name: wildcard-tls
-  namespace: wordpress  # Namespace where the certificate will be created
-spec:
-  secretName: busyqa2-tls-secret #unique
-  issuerRef:
-    name: letsencrypt-prod
-    kind: ClusterIssuer
-  commonName: "*.shananatestingdevops.xyz"
-  dnsNames:
-  - "*.shananatestingdevops.xyz"
+  - wordpress.shananatestingdevops.xyz
 
 ---
 
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: wildcard-tls
-  namespace: voteapp  # Namespace where the certificate will be created
+  name: home-tls
+  namespace: home
 spec:
-  secretName: busyqa3-tls-secret
+  secretName: home-tls-secret
   issuerRef:
     name: letsencrypt-prod
     kind: ClusterIssuer
-  commonName: "*.shananatestingdevops.xyz"
+  commonName: shananatestingdevops.xyz
   dnsNames:
-  - "*.shananatestingdevops.xyz"
+  - shananatestingdevops.xyz
+
+---
+
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: voteapp-tls
+  namespace: voteapp
+spec:
+  secretName: voteapp-tls-secret  # Changed secret name to be unique
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+  commonName: vote.shananatestingdevops.xyz
+  dnsNames:
+  - vote.shananatestingdevops.xyz
+  - result.shananatestingdevops.xyz  # Each DNS name should be on a separate line

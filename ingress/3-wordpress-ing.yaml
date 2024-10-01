@@ -10,7 +10,7 @@ spec:
   tls:
   - hosts:
     - wordpress.shananatestingdevops.xyz
-    secretName: busyqa-tls-secret
+    secretName: wordpress-tls-secret
   rules:
   - host: wordpress.shananatestingdevops.xyz
     http:
