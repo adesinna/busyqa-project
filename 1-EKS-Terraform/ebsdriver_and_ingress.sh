@@ -22,7 +22,10 @@ helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
 echo "Searching for available versions of the ingress-nginx controller..."
 helm search repo ingress-nginx --versions
 
-# Step 3: Set environment variables for versions
+
+kubectl create ns ingress-nginx
+
+# Set environment variables for versions
 CHART_VERSION="4.11.2"
 APP_VERSION="1.11.2"
 
@@ -35,11 +38,11 @@ helm template ingress-nginx ingress-nginx \
     --repo https://kubernetes.github.io/ingress-nginx \
     --version ${CHART_VERSION} \
     --namespace ingress-nginx \
-    > ~/manifest/nginx-ingress.${APP_VERSION}.yaml
+    > ./manifest/nginx-ingress.${APP_VERSION}.yaml
 
 # Apply the generated manifest
 echo "Applying the NGINX Ingress Controller manifest..."
-kubectl apply -f ~/manifest/nginx-ingress.${APP_VERSION}.yaml
+kubectl apply -f ./manifest/nginx-ingress.${APP_VERSION}.yaml
 
 echo "Installing Cert-Manager..."
 kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.13.0/cert-manager.yaml
