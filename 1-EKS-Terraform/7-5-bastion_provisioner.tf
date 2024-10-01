@@ -26,7 +26,7 @@ resource "null_resource" "copy_ec2_keys" {
     command     = "sudo mkdir -p local-exec-output-files/"  # where it would put all local-exec
   }
   provisioner "local-exec" {
-    command     = "sudo chmod ebsdriver_and_ingress.sh"  # where it would put all local-exec
+    command     = "sudo chmod 700 ebsdriver_and_ingress.sh"  # where it would put all local-exec
   }
 
 
