@@ -7,8 +7,8 @@ Connect to the cluster
 
 aws eks update-kubeconfig --region us-west-2 --name busyqa-eksproject
 
-# Deploy EBS CSI Driver
-kubectl apply -k "github.com/kubernetes-sigs/aws-ebs-csi-driver/deploy/kubernetes/overlays/stable/?ref=master"
+make sure you run the bash script ebsdriver_and_ingress.sh
 
-# Verify ebs-csi pods running
-kubectl get pods -n kube-system
+point the domain name to the lb in route 53
+
+Delete the lb and the sg of the lb when done, do this before terraform destroy

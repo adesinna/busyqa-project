@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis-deployment
+  namespace: voteapp
+  labels:
+    app: redis
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redis
+  template:
+    metadata:
+      labels:
+        app: redis
+    spec:
+      containers:
+      - name: redis
+        image: redis:6.2
+        ports:
+        - containerPort: 6379
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "250m"
+        readinessProbe:
+          tcpSocket:
+            port: 6379
+          initialDelaySeconds: 5
+          periodSeconds: 10
+        resources:
+          requests:
+            memory: "512Mi"  # Minimum memory required
+            cpu: "250m"      # Minimum CPU required
+        volumeMounts:
+        - name: redis-storage
+          mountPath: /data  # Path inside the container where the volume will be mounted
+      volumes:
+      - name: redis-storage
+        persistentVolumeClaim:
+          claimName: redis-pvc  # Reference to the PVC

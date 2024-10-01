@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres
+  namespace: voteapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres
+  template:
+    metadata:
+      labels:
+        app: postgres
+    spec:
+      containers:
+      - name: postgres
+        image: postgres:latest
+        ports:
+        - containerPort: 5432
+        env:
+        - name: POSTGRES_USER
+          valueFrom:
+            configMapKeyRef:
+              name: voteapp-configmap
+              key: POSTGRES_USER
+
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: voteapp-secret
+              key: POSTGRES_PASSWORD
+        volumeMounts:
+        - mountPath: /var/lib/postgresql/data
+          name: postgres-storage
+        resources:
+          requests:
+            memory: "512Mi"  # Minimum memory required
+            cpu: "250m"      # Minimum CPU required
+        readinessProbe:
+          exec:
+            command:
+              - pg_isready
+          initialDelaySeconds: 5
+          periodSeconds: 10
+      volumes:
+      - name: postgres-storage
+        persistentVolumeClaim:
+          claimName: postgres-pvc

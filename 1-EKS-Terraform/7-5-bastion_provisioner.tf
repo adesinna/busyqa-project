@@ -23,9 +23,18 @@ resource "null_resource" "copy_ec2_keys" {
   }
 ## Local Exec Provisioner:  local-exec provisioner (Creation-Time Provisioner - Triggered during Create Resource)
   provisioner "local-exec" {
+    command     = "sudo mkdir -p local-exec-output-files/"  # where it would put all local-exec
+  }
+  provisioner "local-exec" {
+    command     = "sudo chmod ebsdriver_and_ingress.sh"  # where it would put all local-exec
+  }
+
+
+  provisioner "local-exec" {
     command = "echo VPC created on `date` and VPC ID: ${module.vpc.vpc_id} >> creation-time-vpc-id.txt"
     working_dir = "local-exec-output-files/"
     #on_failure = continue
   }
+
 
 }

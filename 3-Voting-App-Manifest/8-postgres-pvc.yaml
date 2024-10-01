@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: postgres-pvc
+  namespace: voteapp
+spec:
+  storageClassName: voteapp-sc  # Reference to the StorageClass
+  accessModes:
+    - ReadWriteOnce  # Only one node can mount the volume
+  resources:
+    requests:
+      storage: 1Gi  # Request  for 1Gi of storage
