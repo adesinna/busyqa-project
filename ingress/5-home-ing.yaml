@@ -8,17 +8,28 @@ metadata:
 spec:
   ingressClassName: nginx
   tls:
-  - hosts:
-    - shananatestingdevops.xyz
-    secretName: home-tls-secret  # Reference the  secret
+    - hosts:
+      - shananatestingdevops.xyz
+      - www.shananatestingdevops.xyz  # Added the www version
+      secretName: home-tls-secret  # Reference the TLS secret
   rules:
-  - host: shananatestingdevops.xyz
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: home-svc
-            port:
-              number: 80
+    - host: shananatestingdevops.xyz
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: home-svc
+                port:
+                  number: 80
+    - host: www.shananatestingdevops.xyz  # Added rule for www host
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: home-svc
+                port:
+                  number: 80

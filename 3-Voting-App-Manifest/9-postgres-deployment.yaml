@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: postgres
+  name: db
   namespace: voteapp
 spec:
   replicas: 1
@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: postgres
-        image: postgres:alpine  # Using the Alpine-based PostgreSQL image
+        image: postgres:9.4
         ports:
         - containerPort: 5432
         env:

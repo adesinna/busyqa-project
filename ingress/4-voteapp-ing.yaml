@@ -20,9 +20,9 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: vote-svc
+            name: vote
             port:
-              number: 5000
+              number: 80
   - host: result.shananatestingdevops.xyz
     http:
       paths:
@@ -30,7 +30,7 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: result-svc
+            name: result
             port:
-              number: 5001
+              number: 80
 

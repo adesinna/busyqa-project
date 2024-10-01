@@ -27,6 +27,7 @@ spec:
   commonName: shananatestingdevops.xyz
   dnsNames:
   - shananatestingdevops.xyz
+  - www.shananatestingdevops.xyz
 
 ---
 

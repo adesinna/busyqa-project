@@ -16,29 +16,8 @@ spec:
       containers:
       - name: worker
         image: dockersamples/examplevotingapp_worker:latest
-        env:
-        - name: REDIS_HOST
-          valueFrom:
-            configMapKeyRef:
-              name: voteapp-configmap
-              key: REDIS_HOST
-        - name: POSTGRES_HOST
-          valueFrom:
-            configMapKeyRef:
-              name: voteapp-configmap
-              key: POSTGRES_HOST
-        - name: POSTGRES_USER
-          valueFrom:
-            configMapKeyRef:
-              name: voteapp-configmap
-              key: POSTGRES_USER
-        - name: POSTGRES_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: voteapp-secret
-              key: POSTGRES_PASSWORD
         resources:
           requests:
-            memory: "512Mi"  # Minimum memory required
+            memory: "64Mi"  # Minimum memory required
             cpu: "250m"      # Minimum CPU required
 

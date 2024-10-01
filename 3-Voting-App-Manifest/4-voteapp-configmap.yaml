@@ -5,6 +5,5 @@ metadata:
   namespace: voteapp
 data:
   POSTGRES_USER: postgres
-  MYSQL_USER: wordpress
-  POSTGRES_HOST: postgres-svc # port is configured in the app
-  REDIS_HOST: redis-svc # port is configured in the app
+  POSTGRES_DB: postgres
+

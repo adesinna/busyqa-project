@@ -17,14 +17,8 @@ spec:
       - name: vote
         image: dockersamples/examplevotingapp_vote:latest
         ports:
-        - containerPort: 5000
-        env:
-        - name: REDIS_HOST
-          valueFrom:
-            configMapKeyRef:
-              name: voteapp-configmap
-              key: REDIS_HOST
+        - containerPort: 80
         resources:
           requests:
-            memory: "512Mi"  # Minimum memory required
+            memory: "64Mi"  # Minimum memory required
             cpu: "250m"      # Minimum CPU required
