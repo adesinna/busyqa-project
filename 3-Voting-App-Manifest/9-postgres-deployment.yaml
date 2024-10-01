@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: postgres
-        image: postgres:latest
+        image: postgres:alpine  # Using the Alpine-based PostgreSQL image
         ports:
         - containerPort: 5432
         env:
@@ -32,10 +32,6 @@ spec:
         volumeMounts:
         - mountPath: /var/lib/postgresql/data
           name: postgres-storage
-        resources:
-          requests:
-            memory: "512Mi"  # Minimum memory required
-            cpu: "250m"      # Minimum CPU required
       volumes:
       - name: postgres-storage
         persistentVolumeClaim:

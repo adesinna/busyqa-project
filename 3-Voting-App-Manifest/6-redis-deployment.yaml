@@ -20,14 +20,6 @@ spec:
         image: redis:6.2
         ports:
         - containerPort: 6379
-        resources:
-          requests:
-            memory: "256Mi"
-            cpu: "250m"
-        resources:
-          requests:
-            memory: "512Mi"  # Minimum memory required
-            cpu: "250m"      # Minimum CPU required
         volumeMounts:
         - name: redis-storage
           mountPath: /data  # Path inside the container where the volume will be mounted
