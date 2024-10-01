@@ -37,13 +37,3 @@ spec:
           requests:
             memory: "512Mi"  # Minimum memory required
             cpu: "250m"      # Minimum CPU required
-        readinessProbe:
-          exec:
-            command:
-              - pg_isready
-          initialDelaySeconds: 5
-          periodSeconds: 10
-      volumes:
-      - name: postgres-storage
-        persistentVolumeClaim:
-          claimName: postgres-pvc

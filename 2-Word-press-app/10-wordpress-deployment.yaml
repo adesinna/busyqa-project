@@ -48,15 +48,6 @@ spec:
           requests:
             memory: "512Mi"  # Minimum memory required
             cpu: "250m"      # Minimum CPU required
-        readinessProbe:
-          exec:
-            command:
-              - sh
-              - -c
-              - "nc -z -v $WORDPRESS_DB_HOST 3306"  # Check if MySQL is accepting connections on port 3306
-          initialDelaySeconds: 30  # Delay before the first probe
-          periodSeconds: 10         # Interval between probes
-          failureThreshold: 3       # Fail after 3 unsuccessful attempts
       volumes:
       - name: wordpress-storage
         persistentVolumeClaim:

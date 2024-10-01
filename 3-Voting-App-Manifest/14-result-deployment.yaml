@@ -38,11 +38,3 @@ spec:
           requests:
             memory: "512Mi"  # Minimum memory required
             cpu: "250m"      # Minimum CPU required
-        readinessProbe:
-          exec:
-            command: ["sh", "-c", "pg_isready -h $(POSTGRES_HOST) -U postgres"]  # Check if PostgreSQL is ready
-          initialDelaySeconds: 10
-          periodSeconds: 10
-          timeoutSeconds: 2
-          successThreshold: 1
-          failureThreshold: 3

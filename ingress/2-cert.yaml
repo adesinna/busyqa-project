@@ -2,9 +2,40 @@ apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: wildcard-tls
-  namespace: cert-manager  # Namespace where the certificate will be created
+  namespace: home  # Namespace where the certificate will be created
 spec:
-  secretName: busyqa-tls-secret
+  secretName: busyqa1-tls-secret
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+  commonName: "*.shananatestingdevops.xyz"
+  dnsNames:
+  - "*.shananatestingdevops.xyz"
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: wildcard-tls
+  namespace: wordpress  # Namespace where the certificate will be created
+spec:
+  secretName: busyqa2-tls-secret #unique
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+  commonName: "*.shananatestingdevops.xyz"
+  dnsNames:
+  - "*.shananatestingdevops.xyz"
+
+---
+
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: wildcard-tls
+  namespace: voteapp  # Namespace where the certificate will be created
+spec:
+  secretName: busyqa3-tls-secret
   issuerRef:
     name: letsencrypt-prod
     kind: ClusterIssuer

@@ -28,11 +28,3 @@ spec:
           requests:
             memory: "512Mi"  # Minimum memory required
             cpu: "250m"      # Minimum CPU required
-        readinessProbe:
-          tcpSocket:
-            port: 6379  # The Redis service port
-          initialDelaySeconds: 5  # Time to wait before starting checks
-          periodSeconds: 10        # How often to perform the check
-          timeoutSeconds: 2        # Timeout for each check
-          successThreshold: 1      # How many consecutive successes for readiness
-          failureThreshold: 3      # How many consecutive failures to mark as not ready

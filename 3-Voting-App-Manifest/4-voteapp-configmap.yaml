@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: mysql-configmap
+  name: voteapp-configmap
   namespace: voteapp
 data:
   POSTGRES_USER: postgres
