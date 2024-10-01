@@ -1,24 +1,24 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: wordpress-ing
-  namespace: wordpress
+  name: home-ing
+  namespace: home
   annotations:
     nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
 spec:
   ingressClassName: nginx
   tls:
   - hosts:
-    - wordpress.shananatestingdevops.xyz
-    secretName: wordpress-tls-secret
+    - shananatestingdevops.xyz
+    secretName: busyqa-tls-secret  # Reference the same secret
   rules:
-  - host: wordpress.shananatestingdevops.xyz
+  - host: shananatestingdevops.xyz
     http:
       paths:
       - path: /
         pathType: Prefix
         backend:
           service:
-            name: wordpress-service
+            name: home-svc
             port:
               number: 80

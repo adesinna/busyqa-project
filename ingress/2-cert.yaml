@@ -1,0 +1,13 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: wildcard-tls
+  namespace: cert-manager  # Namespace where the certificate will be created
+spec:
+  secretName: busyqa-tls-secret
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+  commonName: "*.shananatestingdevops.xyz"
+  dnsNames:
+  - "*.shananatestingdevops.xyz"

@@ -1,0 +1,87 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: homepage-deployment
+  namespace: home
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: homepage
+  template:
+    metadata:
+      labels:
+        app: homepage
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:alpine
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: html-volume
+          mountPath: /usr/share/nginx/html
+      volumes:
+      - name: html-volume
+        configMap:
+          name: homepage-config
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: homepage-config
+  namespace: home
+data:
+  index.html: |
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Beautiful Homepage</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                background-color: #f0f0f0;
+                text-align: center;
+                padding: 50px;
+            }
+            h1 {
+                color: #333;
+            }
+            button {
+                padding: 15px 25px;
+                font-size: 16px;
+                margin: 10px;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                background-color: #007bff;
+                color: white;
+            }
+            button:hover {
+                background-color: #0056b3;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Welcome Beautiful BMT!</h1>
+        <button onclick="window.location.href='http://wordpress.shananatestingdevops.xyz';">Go to WordPress</button>
+        <button onclick="window.location.href='http://result.shananatestingdevops.xyz';">View Results</button>
+        <button onclick="window.location.href='http://vote.shananatestingdevops.xyz';">Vote Now</button>
+    </body>
+    </html>
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: home-svc
+  namespace: home
+spec:
+  selector:
+    app: homepage
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  type: ClusterIP
