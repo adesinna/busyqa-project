@@ -16,7 +16,7 @@ spec:
         name: cpu
         target:
           type: Utilization
-          averageUtilization: 59  # Scale up at 50% CPU usage
+          averageUtilization: 50  # Scale up at 50% CPU usage
     - type: Resource
       resource:
         name: memory
