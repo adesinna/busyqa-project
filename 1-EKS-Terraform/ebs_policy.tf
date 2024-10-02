@@ -30,3 +30,6 @@ resource "aws_iam_policy_attachment" "attach_amazon_ebs_csi_driver" {
   policy_arn = aws_iam_policy.amazon_ebs_csi_driver.arn
   roles      = [aws_iam_role.eks_nodegroup_role.name]
 }
+
+
+

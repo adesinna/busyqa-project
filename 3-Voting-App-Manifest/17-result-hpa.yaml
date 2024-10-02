@@ -7,7 +7,7 @@ spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: vote
+    name: result
   minReplicas: 3  # Keep a minimum of 3 replicas
   maxReplicas: 12 # Maximum replicas to scale to
   metrics:
@@ -16,10 +16,10 @@ spec:
         name: cpu
         target:
           type: Utilization
-          averageUtilization: 50  # Scale up at 65% CPU usage
+          averageUtilization: 59  # Scale up at 50% CPU usage
     - type: Resource
       resource:
         name: memory
         target:
           type: Utilization
-          averageUtilization: 50  # Scale up at 65% memory usage
+          averageUtilization: 50  # Scale up at 50% memory usage
