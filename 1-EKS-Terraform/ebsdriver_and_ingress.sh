@@ -47,4 +47,9 @@ kubectl apply -f ./manifest/nginx-ingress.${APP_VERSION}.yaml
 echo "Installing Cert-Manager..."
 kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.13.0/cert-manager.yaml
 
-echo "NGINX Ingress Controller has been installed and applied."
+
+# install metric-server
+echo "Installing metric-server.."
+kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
+
+echo "NGINX Ingress Controller and metric server have been installed and applied."

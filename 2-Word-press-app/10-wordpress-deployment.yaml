@@ -6,7 +6,7 @@ metadata:
   labels:
     app: wordpress
 spec:
-  replicas: 1
+  replicas: 3  # Updated to 3 replicas for high availability
   selector:
     matchLabels:
       app: wordpress
