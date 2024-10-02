@@ -52,7 +52,5 @@ kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/
 echo "Installing metric-server.."
 kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
 
-# cluster autoscaler for eks version 1.3
-echo "Installing cluster-autoscaler.."
 
 echo "All done"
