@@ -14,16 +14,16 @@ curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
 echo "Verifying Helm installation..."
 helm version
 
-# Add the ingress-nginx repository
+# Add the 5-ingress-nginx repository
 echo "Adding ingress-nginx repository..."
-helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
+helm repo add 5-ingress-nginx https://kubernetes.github.io/ingress-nginx
 
 # Search for available versions
 echo "Searching for available versions of the ingress-nginx controller..."
-helm search repo ingress-nginx --versions
+helm search repo 5-ingress-nginx --versions
 
 
-kubectl create ns ingress-nginx
+kubectl create ns 5-ingress-nginx
 
 # Set environment variables for versions
 CHART_VERSION="4.11.2"
@@ -34,15 +34,15 @@ mkdir -p ./manifest
 
 # Generate the NGINX Ingress Controller manifest
 echo "Generating NGINX Ingress Controller manifest..."
-helm template ingress-nginx ingress-nginx \
+helm template 5-ingress-nginx 5-ingress-nginx \
     --repo https://kubernetes.github.io/ingress-nginx \
     --version ${CHART_VERSION} \
-    --namespace ingress-nginx \
-    > ./manifest/nginx-ingress.${APP_VERSION}.yaml
+    --namespace 5-ingress-nginx \
+    > ./manifest/nginx-5-ingress.${APP_VERSION}.yaml
 
 # Apply the generated manifest
 echo "Applying the NGINX Ingress Controller manifest..."
-kubectl apply -f ./manifest/nginx-ingress.${APP_VERSION}.yaml
+kubectl apply -f ./manifest/nginx-5-ingress.${APP_VERSION}.yaml
 
 echo "Installing Cert-Manager..."
 kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.13.0/cert-manager.yaml
