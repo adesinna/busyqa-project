@@ -4,9 +4,6 @@
 sudo apt-get update -y
 sudo apt install unzip -y
 
-# Kill the process with PID 3155 if it is running
-sudo kill -9 3155
-
 curl "https://awscli.amazonaws.com/awscli-exe-linux-aarch64.zip" -o "awscliv2.zip"
 unzip awscliv2.zip
 sudo ./aws/install
@@ -31,7 +28,10 @@ echo "$(cat kubectl.sha256)  kubectl" | sha256sum --check
 chmod +x ./kubectl
 mkdir -p $HOME/bin && cp ./kubectl $HOME/bin/kubectl && export PATH=$HOME/bin:$PATH
 echo 'export PATH=$HOME/bin:$PATH' >> ~/.bashrc
-kubectl version --short --client
+# Set KUBE_CONFIG_PATH permanently across all sessions
+echo 'export KUBE_CONFIG_PATH=~/.kube/config' >> ~/.bashrc
+source ~/.bashrc
+
 
 # Install eksctl
 ARCH=arm64

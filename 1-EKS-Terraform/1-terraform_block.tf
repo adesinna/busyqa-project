@@ -17,9 +17,5 @@ terraform {
       version = "~> 3.0"
     }
 
-    helm = {
-      source  = "hashicorp/helm"
-      version = "~> 2.9"  # Specify the appropriate Helm provider version
-    }
   }
 }
