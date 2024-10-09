@@ -28,10 +28,11 @@ sudo ./aws/install
 # Configure AWS CLI
 read -p "Enter your AWS Access Key ID: " aws_access_key_id
 read -p "Enter your AWS Secret Access Key: " aws_secret_access_key
+read -p "Enter your AWS Region: " aws_region
 
 aws configure set aws_access_key_id "$aws_access_key_id"
 aws configure set aws_secret_access_key "$aws_secret_access_key"
-aws configure set default.region us-west-2
+aws configure set default.region "$aws_region"
 aws configure set default.output json
 
 # Install latest kubectl binary (for eks v1.3+)
