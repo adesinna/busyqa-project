@@ -9,17 +9,17 @@ spec:
     kind: Deployment
     name: wordpress
   minReplicas: 3  # Keep a minimum of 3 replicas
-  maxReplicas: 5 # Maximum replicas to scale to
+  maxReplicas: 12 # Maximum replicas to scale to
   metrics:
     - type: Resource
       resource:
         name: cpu
         target:
           type: Utilization
-          averageUtilization: 50  # Scale up at 65% CPU usage
+          averageUtilization: 65  # Scale up at 65% CPU usage
     - type: Resource
       resource:
         name: memory
         target:
           type: Utilization
-          averageUtilization: 50  # Scale up at 65% memory usage
+          averageUtilization: 65  # Scale up at 65% memory usage
