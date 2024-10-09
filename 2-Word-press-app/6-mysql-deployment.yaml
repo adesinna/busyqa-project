@@ -47,8 +47,8 @@ spec:
           mountPath: /var/lib/mysql  # MySQL data directory
         resources:
           requests:
-            memory: "512Mi"  # Minimum memory required
-            cpu: "250m"      # Minimum CPU required
+            memory: "212Mi"  # Minimum memory required
+            cpu: "100m"      # Minimum CPU required
         args: ["--ignore-db-dir=lost+found"]  # Ignore lost+found directory
         readinessProbe:
           exec:

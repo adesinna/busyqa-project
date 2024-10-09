@@ -4,6 +4,6 @@ metadata:
   name: voteapp-configmap
   namespace: voteapp
 data:
-  POSTGRES_USER: postgres
-  POSTGRES_DB: postgres
+  POSTGRES_USER: postgres          # PostgreSQL username
+  POSTGRES_DB: postgres            # Database name to create
 

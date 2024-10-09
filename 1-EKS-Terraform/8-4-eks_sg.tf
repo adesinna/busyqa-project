@@ -1,1 +1,0 @@
-# no need of sg since it would be created with the cluster 

@@ -1,36 +1,36 @@
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: voteapp-ing
-  namespace: voteapp
-  annotations:
-    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
-spec:
-  ingressClassName: nginx
-  tls:
-  - hosts:
-    - vote.shananatestingdevops.xyz
-    - result.shananatestingdevops.xyz
-    secretName: voteapp-tls-secret  # Reference the same secret
-  rules:
-  - host: vote.shananatestingdevops.xyz
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: vote
-            port:
-              number: 80
-  - host: result.shananatestingdevops.xyz
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: result
-            port:
-              number: 80
-
+# apiVersion: networking.k8s.io/v1
+# kind: Ingress
+# metadata:
+#   name: voteapp-ing
+#   namespace: voteapp
+#   annotations:
+#     nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+# spec:
+#   ingressClassName: nginx
+#   tls:
+#   - hosts:
+#     - vote.shananatestingdevops.xyz
+#     - result.shananatestingdevops.xyz
+#     secretName: voteapp-tls-secret  # Reference the same secret
+#   rules:
+#   - host: vote.shananatestingdevops.xyz
+#     http:
+#       paths:
+#       - path: /
+#         pathType: Prefix
+#         backend:
+#           service:
+#             name: vote
+#             port:
+#               number: 80
+#   - host: result.shananatestingdevops.xyz
+#     http:
+#       paths:
+#       - path: /
+#         pathType: Prefix
+#         backend:
+#           service:
+#             name: result
+#             port:
+#               number: 80
+#

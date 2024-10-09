@@ -1,47 +1,47 @@
-apiVersion: cert-manager.io/v1
-kind: Certificate
-metadata:
-  name: wordpress-tls
-  namespace: wordpress
-spec:
-  secretName: wordpress-tls-secret
-  issuerRef:
-    name: letsencrypt-prod
-    kind: ClusterIssuer
-  commonName: wordpress.shananatestingdevops.xyz
-  dnsNames:
-  - wordpress.shananatestingdevops.xyz
-
----
-
-apiVersion: cert-manager.io/v1
-kind: Certificate
-metadata:
-  name: home-tls
-  namespace: home
-spec:
-  secretName: home-tls-secret
-  issuerRef:
-    name: letsencrypt-prod
-    kind: ClusterIssuer
-  commonName: shananatestingdevops.xyz
-  dnsNames:
-  - shananatestingdevops.xyz
-  - www.shananatestingdevops.xyz
-
----
-
-apiVersion: cert-manager.io/v1
-kind: Certificate
-metadata:
-  name: voteapp-tls
-  namespace: voteapp
-spec:
-  secretName: voteapp-tls-secret  # Changed secret name to be unique
-  issuerRef:
-    name: letsencrypt-prod
-    kind: ClusterIssuer
-  commonName: vote.shananatestingdevops.xyz
-  dnsNames:
-  - vote.shananatestingdevops.xyz
-  - result.shananatestingdevops.xyz  # Each DNS name should be on a separate line
+# apiVersion: cert-manager.io/v1
+# kind: Certificate
+# metadata:
+#   name: wordpress-tls
+#   namespace: wordpress
+# spec:
+#   secretName: wordpress-tls-secret
+#   issuerRef:
+#     name: letsencrypt-prod
+#     kind: ClusterIssuer
+#   commonName: wordpress.shananatestingdevops.xyz
+#   dnsNames:
+#   - wordpress.shananatestingdevops.xyz
+#
+# ---
+#
+# apiVersion: cert-manager.io/v1
+# kind: Certificate
+# metadata:
+#   name: home-tls
+#   namespace: home
+# spec:
+#   secretName: home-tls-secret
+#   issuerRef:
+#     name: letsencrypt-prod
+#     kind: ClusterIssuer
+#   commonName: shananatestingdevops.xyz
+#   dnsNames:
+#   - shananatestingdevops.xyz
+#   - www.shananatestingdevops.xyz
+#
+# ---
+#
+# apiVersion: cert-manager.io/v1
+# kind: Certificate
+# metadata:
+#   name: voteapp-tls
+#   namespace: voteapp
+# spec:
+#   secretName: voteapp-tls-secret  # Changed secret name to be unique
+#   issuerRef:
+#     name: letsencrypt-prod
+#     kind: ClusterIssuer
+#   commonName: vote.shananatestingdevops.xyz
+#   dnsNames:
+#   - vote.shananatestingdevops.xyz
+#   - result.shananatestingdevops.xyz  # Each DNS name should be on a separate line

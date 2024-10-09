@@ -4,7 +4,7 @@ metadata:
   name: result
   namespace: voteapp
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
       app: result
@@ -21,4 +21,4 @@ spec:
         resources:
           requests:
             memory: "64Mi"  # Minimum memory required
-            cpu: "250m"      # Minimum CPU required
+            cpu: "100m"      # Minimum CPU required

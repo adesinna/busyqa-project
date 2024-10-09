@@ -9,15 +9,15 @@ unzip awscliv2.zip
 sudo ./aws/install
 
 # Configure AWS CLI
-read -p "Enter your AWS Access Key ID: " aws_access_key_id
-read -p "Enter your AWS Secret Access Key: " aws_secret_access_key
+read -p "Enter your AWS Access Key ID: " -n 20 aws_access_key_id
+read -p "Enter your AWS Secret Access Key: " -n 40 aws_secret_access_key
 
 aws configure set aws_access_key_id "$aws_access_key_id"
 aws configure set aws_secret_access_key "$aws_secret_access_key"
 aws configure set default.region us-west-2
-aws configure set default.output_format json
+aws configure set default.output json
 
-# Install latest kubectl binary (eks of 1.3)
+# Install latest kubectl binary (for eks v1.3+)
 LATEST_KUBECTL_VERSION=$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)
 curl -LO "https://dl.k8s.io/release/${LATEST_KUBECTL_VERSION}/bin/linux/arm64/kubectl"
 curl -LO "https://dl.k8s.io/release/${LATEST_KUBECTL_VERSION}/bin/linux/arm64/kubectl.sha256"
@@ -31,7 +31,6 @@ echo 'export PATH=$HOME/bin:$PATH' >> ~/.bashrc
 # Set KUBE_CONFIG_PATH permanently across all sessions
 echo 'export KUBE_CONFIG_PATH=~/.kube/config' >> ~/.bashrc
 source ~/.bashrc
-
 
 # Install eksctl
 ARCH=arm64
@@ -53,5 +52,3 @@ sudo apt update && sudo apt install terraform -y
 terraform -version
 
 echo "AWS CLI setup, kubectl, eksctl, and Terraform installation completed."
-
-exit

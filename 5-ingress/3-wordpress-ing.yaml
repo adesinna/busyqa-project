@@ -1,24 +1,24 @@
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: wordpress-ing
-  namespace: wordpress
-  annotations:
-    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
-spec:
-  ingressClassName: nginx
-  tls:
-  - hosts:
-    - wordpress.shananatestingdevops.xyz
-    secretName: wordpress-tls-secret
-  rules:
-  - host: wordpress.shananatestingdevops.xyz
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: wordpress-service
-            port:
-              number: 80
+# apiVersion: networking.k8s.io/v1
+# kind: Ingress
+# metadata:
+#   name: wordpress-ing
+#   namespace: wordpress
+#   annotations:
+#     nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+# spec:
+#   ingressClassName: nginx
+#   tls:
+#   - hosts:
+#     - wordpress.shananatestingdevops.xyz
+#     secretName: wordpress-tls-secret
+#   rules:
+#   - host: wordpress.shananatestingdevops.xyz
+#     http:
+#       paths:
+#       - path: /
+#         pathType: Prefix
+#         backend:
+#           service:
+#             name: wordpress-service
+#             port:
+#               number: 80

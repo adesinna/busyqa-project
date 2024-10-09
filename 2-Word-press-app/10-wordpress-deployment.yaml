@@ -46,8 +46,8 @@ spec:
           mountPath: /var/www/html
         resources:
           requests:
-            memory: "512Mi"  # Minimum memory required
-            cpu: "250m"      # Minimum CPU required
+            memory: "212Mi"  # Minimum memory required
+            cpu: "100m"      # Minimum CPU required
       volumes:
       - name: wordpress-storage
         persistentVolumeClaim:

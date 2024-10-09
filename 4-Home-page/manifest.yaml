@@ -74,8 +74,9 @@ data:
     <body>
         <h1>Welcome Beautiful BMT!</h1>
         <button onclick="window.location.href='http://wordpress.shananatestingdevops.xyz';">Go to WordPress</button>
-        <button onclick="window.location.href='http://result.shananatestingdevops.xyz';">View Results</button>
         <button onclick="window.location.href='http://vote.shananatestingdevops.xyz';">Vote Now</button>
+        <button onclick="window.location.href='http://result.shananatestingdevops.xyz';">View Results</button>
+
     </body>
     </html>
 ---
