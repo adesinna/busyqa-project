@@ -1,3 +1,13 @@
 # busyqa-project
 
-Make sure you read main.txt in 1-EKS-Terraform
+1. Run the installation script
+
+2. Run the terraform scripts in 1
+
+3. Apply kubectl for 2-5
+
+Load test
+sudo apt-get install apache2-utils -y
+ab -n 1000 -c 10 http://url
+
+ab -n 5000 -c 10 http://wordpress.shananatestingdevops.xyz/ # replace with your own domain name
