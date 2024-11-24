@@ -1,0 +1,19 @@
+wordpressUsername: admin
+wordpressPassword: wordpress # Replace with a strong password
+mariadb:
+  primary:
+    persistence:
+      storageClass: gp2 # Ensure this matches your storage class in the cluster
+  auth:
+    rootPassword: wordpress # Replace with a strong password
+    database: wordpress
+    username: wordpress
+    password: wordpress # Replace with a strong password
+
+service:
+  type: ClusterIP
+
+persistence:
+  storageClass: gp2
+
+

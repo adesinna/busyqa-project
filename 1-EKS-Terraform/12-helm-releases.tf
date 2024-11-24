@@ -10,13 +10,17 @@ resource "helm_release" "metrics_server" {
 }
 
 resource "helm_release" "aws-ebs-csi-driver" {
-  depends_on = [aws_eks_node_group.eks_ng_private, null_resource.kube-config]
+  depends_on = [
+    aws_eks_node_group.eks_ng_private,
+    null_resource.kube-config,
+  ]
 
   name       = "aws-ebs-csi-driver"
   repository = "https://kubernetes-sigs.github.io/aws-ebs-csi-driver/"
   chart      = "aws-ebs-csi-driver"
   namespace  = "kube-system"
   version    = "2.35.1"
+
 }
 
 resource "helm_release" "ingress-nginx" {
@@ -38,26 +42,33 @@ resource "helm_release" "cluster-autoscaler" {
   chart      = "cluster-autoscaler"
   namespace  = "kube-system"
   version    = "9.40.0"
+  values   = [file("${path.module}/helm-values/cluster-autoscaler-values.yaml")]
+}
+
+resource "helm_release" "wordpress" {
+  depends_on = [
+    aws_eks_node_group.eks_ng_private,
+    null_resource.kube-config
+  ]
+
+  name             = "wordpress"
+  repository       = "https://charts.bitnami.com/bitnami"
+  chart            = "wordpress"
+  namespace        = "wordpress"
+  version          = "24.0.4" # Replace with the desired version
+  create_namespace = true
+  values   = [file("${path.module}/helm-values/wordpress-values.yaml")]
 
 
-  set {
-    name  = "autoDiscovery.clusterName"
-    value = aws_eks_cluster.eks_cluster.name
-  }
+}
 
-  # MUST be updated to match your region
-  set {
-    name  = "awsRegion"
-    value = var.aws_region
-  }
-    set {
-    name  = "nodeGroups[0].minNodes"
-    value = "2"  # Minimum number of nodes in the node group
-  }
 
-  set {
-    name  = "nodeGroups[0].maxNodes"
-    value = "5"  # Maximum number of nodes in the node group
-  }
-
+# Prometheus and grafana installation using Helm, this repo installs both
+resource "helm_release" "kube-prometheus-stack" {
+  name              = "kube-prometheus-stack"
+  repository        = "https://prometheus-community.github.io/helm-charts"
+  chart             = "kube-prometheus-stack"
+  namespace         = "monitor"
+  version           = "66.0.0"
+  create_namespace  = true
 }

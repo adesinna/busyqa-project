@@ -1,36 +1,28 @@
-# EBS policy for the node group
-resource "aws_iam_policy" "amazon_ebs_csi_driver" {
-  name        = "Amazon_EBS_CSI_Driver"
-  description = "Policy for EC2 Instances to access Elastic Block Store"
-
-  policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [{
-      Effect = "Allow"
-      Action = [
-        "ec2:AttachVolume",
-        "ec2:CreateSnapshot",
-        "ec2:CreateTags",
-        "ec2:CreateVolume",
-        "ec2:DeleteSnapshot",
-        "ec2:DeleteTags",
-        "ec2:DeleteVolume",
-        "ec2:DescribeInstances",
-        "ec2:DescribeSnapshots",
-        "ec2:DescribeTags",
-        "ec2:DescribeVolumes",
-        "ec2:DetachVolume"
-      ]
-      Resource = "*"
-    }]
-  })
-}
+//# Step 1: Create the IAM Role for EBS CSI Driver Controller
+//resource "aws_iam_role" "ebs_csi_driver_role" {
+//  name = "${aws_eks_cluster.eks_cluster.name}-ebs-csi-driver-controller-role"
+//
+//  assume_role_policy = jsonencode({
+//    Version = "2012-10-17",
+//    Statement = [
+//      {
+//        Effect = "Allow",
+//        Principal = {
+//          Service = "eks.amazonaws.com"
+//        },
+//        Action = "sts:AssumeRole"
+//      }
+//    ]
+//  })
+//}
 
 resource "aws_iam_policy_attachment" "attach_amazon_ebs_csi_driver" {
   name       = "attach-amazon-ebs-csi-driver"
-  policy_arn = aws_iam_policy.amazon_ebs_csi_driver.arn
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy" # this policy is already on Amazon
   roles      = [aws_iam_role.eks_nodegroup_role.name]
 }
+
+
 
 # Create IAM role for auto-scaler
 resource "aws_iam_role" "cluster_autoscaler_role" {

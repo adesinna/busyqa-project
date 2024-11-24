@@ -23,6 +23,10 @@ resource "aws_eks_node_group" "eks_ng_private" {
     max_unavailable = 1
     #max_unavailable_percentage = 50    # ANY ONE TO USE
   }
+  # Allow external changes without Terraform plan difference
+  lifecycle {
+    ignore_changes = [scaling_config[0].desired_size]
+  }
 
   # Ensure that IAM Role permissions are created before and deleted after EKS Node Group handling.
   # Otherwise, EKS will not be able to properly delete EC2 Instances and Elastic Network Interfaces.

@@ -1,26 +1,44 @@
 #!/bin/bash
 
+# Detect system architecture
+ARCH=$(uname -m)
+
+if [ "$ARCH" == "x86_64" ]; then
+    AWS_ARCH="x86_64"
+    KUBECTL_ARCH="amd64"
+    EKSCTL_ARCH="amd64"
+elif [ "$ARCH" == "aarch64" ]; then
+    AWS_ARCH="aarch64"
+    KUBECTL_ARCH="arm64"
+    EKSCTL_ARCH="arm64"
+else
+    echo "Unsupported architecture: $ARCH"
+    exit 1
+fi
+
 # Install AWS CLI
 sudo apt-get update -y
 sudo apt install unzip -y
 
-curl "https://awscli.amazonaws.com/awscli-exe-linux-aarch64.zip" -o "awscliv2.zip"
+# Download the correct AWS CLI based on architecture
+curl "https://awscli.amazonaws.com/awscli-exe-linux-$AWS_ARCH.zip" -o "awscliv2.zip"
 unzip awscliv2.zip
 sudo ./aws/install
 
 # Configure AWS CLI
-read -p "Enter your AWS Access Key ID: " -n 20 aws_access_key_id
-read -p "Enter your AWS Secret Access Key: " -n 40 aws_secret_access_key
+read -p "Enter your AWS Access Key ID: " aws_access_key_id
+read -p "Enter your AWS Secret Access Key: " aws_secret_access_key
+read -p "Enter your AWS Region: " aws_region
 
 aws configure set aws_access_key_id "$aws_access_key_id"
 aws configure set aws_secret_access_key "$aws_secret_access_key"
-aws configure set default.region us-west-2
+aws configure set default.region "$aws_region"
 aws configure set default.output json
 
 # Install latest kubectl binary (for eks v1.3+)
 LATEST_KUBECTL_VERSION=$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)
-curl -LO "https://dl.k8s.io/release/${LATEST_KUBECTL_VERSION}/bin/linux/arm64/kubectl"
-curl -LO "https://dl.k8s.io/release/${LATEST_KUBECTL_VERSION}/bin/linux/arm64/kubectl.sha256"
+curl -LO "https://dl.k8s.io/release/${LATEST_KUBECTL_VERSION}/bin/linux/$KUBECTL_ARCH/kubectl"
+curl -LO "https://dl.k8s.io/release/${LATEST_KUBECTL_VERSION}/bin/linux/$KUBECTL_ARCH/kubectl.sha256"
 
 # Verify the binary with sha256
 echo "$(cat kubectl.sha256)  kubectl" | sha256sum --check
@@ -33,8 +51,7 @@ echo 'export KUBE_CONFIG_PATH=~/.kube/config' >> ~/.bashrc
 source ~/.bashrc
 
 # Install eksctl
-ARCH=arm64
-PLATFORM=$(uname -s)_$ARCH
+PLATFORM=$(uname -s)_$EKSCTL_ARCH
 
 curl -sLO "https://github.com/eksctl-io/eksctl/releases/latest/download/eksctl_$PLATFORM.tar.gz"
 
