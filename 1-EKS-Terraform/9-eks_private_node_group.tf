@@ -23,6 +23,7 @@ resource "aws_eks_node_group" "eks_ng_private" {
     max_unavailable = 1
     #max_unavailable_percentage = 50    # ANY ONE TO USE
   }
+
   # Allow external changes without Terraform plan difference
   lifecycle {
     ignore_changes = [scaling_config[0].desired_size]

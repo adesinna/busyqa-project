@@ -1,6 +1,6 @@
 autoDiscovery:
-  clusterName: aws_eks_cluster.eks_cluster.name
-awsRegion: var.aws_region
+  clusterName: "${aws_eks_cluster.eks_cluster.name}"
+awsRegion: "${var.aws_region}"
 nodeGroups:
   - minNodes: 2
     maxNodes: 5

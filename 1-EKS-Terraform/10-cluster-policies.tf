@@ -1,21 +1,3 @@
-//# Step 1: Create the IAM Role for EBS CSI Driver Controller
-//resource "aws_iam_role" "ebs_csi_driver_role" {
-//  name = "${aws_eks_cluster.eks_cluster.name}-ebs-csi-driver-controller-role"
-//
-//  assume_role_policy = jsonencode({
-//    Version = "2012-10-17",
-//    Statement = [
-//      {
-//        Effect = "Allow",
-//        Principal = {
-//          Service = "eks.amazonaws.com"
-//        },
-//        Action = "sts:AssumeRole"
-//      }
-//    ]
-//  })
-//}
-
 resource "aws_iam_policy_attachment" "attach_amazon_ebs_csi_driver" {
   name       = "attach-amazon-ebs-csi-driver"
   policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy" # this policy is already on Amazon

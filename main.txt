@@ -12,3 +12,38 @@ ab -n 5000 -c 10 http://wordpress.shananatestingdevops.xyz/
 
 
 aws eks update-kubeconfig --region us-west-2 --name test-eksdemo1
+
+kubectl get secret argocd-initial-admin-secret -n argocd -o jsonpath="{.data.password}" | base64 --decode
+admin
+sSa4BVcXAoj0UoYK
+
+kubectl get secret <grafana-secret-name> -n <namespace> -o jsonpath="{.data.admin-password}" | base64 --decode
+
+kubectl get secret kube-prometheus-stack-grafana -n monitor -o jsonpath="{.data.admin-password}" | base64 --decode
+
+prom-operator
+
+
+
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: app-of-apps
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/<your-repo-argocd>.git
+    targetRevision: HEAD
+    path: ./apps
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: argocd
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+    automated:
+      prune: true
+      selfHeal: true
